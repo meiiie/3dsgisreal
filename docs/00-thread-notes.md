@@ -40,6 +40,7 @@ Pre-GPU setup progress on 2026-06-02:
 - Added `tools/3dgs/runtime_preflight.py` plus root script `pnpm runtime:preflight` to check a running local app against PostGIS, MinIO/S3, admin system health, and the scene manifest before renting GPU time.
 - Current rule: do not rent GPU until the raw capture exists outside git, raw upload dry-run passes, capture/job metadata is ready, and the generated RunPod script has been reviewed.
 - Clean PostGIS preflight exposed that the first migration installed PostGIS into an `extensions` schema while the schema/query code expects `public.geometry` and `public.ST_*`; the initial migration was narrowed to install PostGIS in `public`, and a fresh preflight database applied all seven migrations successfully.
+- The existing local `loi_vao` lab volume was re-baselined after the migration fix by clearing `public.schema_migrations` and running `pnpm db:migrate -- --baseline-existing`; `pnpm db:migrate` then reported no pending migrations without deleting seeded data.
 
 ## Web Scaffold State
 

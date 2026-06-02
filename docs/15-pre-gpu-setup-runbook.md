@@ -188,6 +188,20 @@ pnpm runtime:preflight -- `
 
 The system page should report PostGIS and storage ready for a true end-to-end local run.
 
+Early lab note: if an existing local PostGIS volume reports a checksum mismatch after
+pulling the PostGIS extension fix, do not reset real/private data. For this lab-only
+seed volume, re-baseline migration history after confirming the schema already exists:
+
+```powershell
+docker exec tro-postgres-1 psql -U loi_vao -d loi_vao -c "delete from public.schema_migrations;"
+$env:DATABASE_URL='postgres://loi_vao:loi_vao_dev@localhost:5432/loi_vao'
+pnpm db:migrate -- --baseline-existing
+pnpm db:migrate
+```
+
+Use this only for early local volumes that contain the repo seed schema. For any future
+real deployment, create a forward migration instead of rewriting migration history.
+
 ## GPU Session
 
 Recommended first GPU:
