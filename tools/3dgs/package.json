@@ -3,6 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
+    "upload:raw-capture": "node upload_raw_capture_to_s3.mjs",
     "upload:scene-assets": "node upload_scene_assets_to_s3.mjs"
   },
   "dependencies": {

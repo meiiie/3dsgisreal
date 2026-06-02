@@ -8,6 +8,9 @@
     "dev": "turbo dev",
     "build": "turbo build",
     "assets:upload": "pnpm --filter @loi-vao/3dgs-tools upload:scene-assets",
+    "captures:upload": "pnpm --filter @loi-vao/3dgs-tools upload:raw-capture",
+    "gpu:preflight": "python tools/3dgs/pre_gpu_check.py",
+    "runtime:preflight": "python tools/3dgs/runtime_preflight.py",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck"
   },

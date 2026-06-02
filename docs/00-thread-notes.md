@@ -31,6 +31,16 @@ The user plans to start renting/testing GPU around 13:00 on 2026-06-02 Asia/Saig
 
 Before that, prepare the web app, map shell, data model, asset pipeline docs, and agent harness.
 
+Pre-GPU setup progress on 2026-06-02:
+
+- Added `docs/15-pre-gpu-setup-runbook.md` as the paid-GPU operating checklist.
+- Added `tools/3dgs/create_gpu_experiment.py` to generate a local experiment folder with admin payload drafts, RunPod/Nerfstudio commands, and postprocessing commands before the pod starts.
+- Added `tools/3dgs/upload_raw_capture_to_s3.mjs` plus root script `pnpm captures:upload` for private raw video/photo uploads to the `raw-captures` MinIO/S3 bucket.
+- Added `tools/3dgs/pre_gpu_check.py` plus root script `pnpm gpu:preflight` to validate the generated experiment folder before renting GPU time.
+- Added `tools/3dgs/runtime_preflight.py` plus root script `pnpm runtime:preflight` to check a running local app against PostGIS, MinIO/S3, admin system health, and the scene manifest before renting GPU time.
+- Current rule: do not rent GPU until the raw capture exists outside git, raw upload dry-run passes, capture/job metadata is ready, and the generated RunPod script has been reviewed.
+- Clean PostGIS preflight exposed that the first migration installed PostGIS into an `extensions` schema while the schema/query code expects `public.geometry` and `public.ST_*`; the initial migration was narrowed to install PostGIS in `public`, and a fresh preflight database applied all seven migrations successfully.
+
 ## Web Scaffold State
 
 Created on 2026-06-02:

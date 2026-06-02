@@ -17,6 +17,10 @@ iPhone 14 Pro capture
   -> web app loads scene
 ```
 
+For the pre-rental checklist, command sequence, and operator handoff, use
+`docs/15-pre-gpu-setup-runbook.md`. This file records the pipeline contract; the runbook
+is the paid-GPU operating checklist.
+
 ## Capture Baseline
 
 - Landscape.
@@ -56,6 +60,18 @@ Capture intake stores metadata only:
 
 Do not put raw videos/photos in git or `apps/web/public`. The app should know where a raw capture lives, but the raw private media should stay in private storage or a local transfer folder until the GPU run starts.
 
+Use the repo raw uploader to validate and upload private raw files into the `raw-captures` bucket:
+
+```powershell
+pnpm captures:upload -- `
+  --input E:\captures\home-test-room\raw\gate-room-take-01.mov `
+  --scene-id home-test-room-v1 `
+  --take-id iphone14pro-gate-room-01 `
+  --dry-run
+```
+
+The printed `raw asset key` should match the value recorded in the capture intake row.
+
 ## Processing Job Intake Before GPU
 
 After a capture exists, queue the training job in:
@@ -77,6 +93,36 @@ Processing job intake stores:
 When PostGIS is enabled, creating a job also creates the next `scene_versions` row in `processing` status. That gives the eventual PLY/SuperSplat/SOG output a stable scene version to publish against.
 
 This does not start billing by itself. Real GPU cost starts only when the operator rents/starts the GPU pod or cloud instance.
+
+Create a local experiment folder before opening RunPod:
+
+```powershell
+python tools\3dgs\create_gpu_experiment.py `
+  --scene-id home-test-room-v1 `
+  --place-slug phong-thu-nghiem-tu-cong-vao `
+  --raw-input E:\captures\home-test-room\raw\gate-room-take-01.mov `
+  --frame-target 400
+```
+
+This writes admin payload drafts, `runpod-nerfstudio.sh`, and a local postprocessing script
+under `artifacts/gpu-experiments/...`.
+
+Run the generated-folder preflight before starting a paid pod:
+
+```powershell
+pnpm gpu:preflight -- `
+  --experiment-dir artifacts\gpu-experiments\home-test-room-v1\pre-gpu-template
+```
+
+Run the app API preflight when the local app is up with PostGIS and MinIO/S3 env:
+
+```powershell
+pnpm runtime:preflight -- `
+  --base-url http://127.0.0.1:4317 `
+  --scene-id home-test-room-v1 `
+  --expect-postgis `
+  --expect-storage-ready
+```
 
 ## Processing Job Status
 
