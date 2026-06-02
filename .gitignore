@@ -1,0 +1,58 @@
+# dependencies
+node_modules/
+.pnpm-store/
+
+# builds
+.next/
+dist/
+build/
+out/
+.turbo/
+artifacts/
+*.tsbuildinfo
+
+# env
+.env
+.env.*
+!.env.example
+
+# logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# Python
+__pycache__/
+*.py[cod]
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# 3DGS raw and generated heavy assets
+datasets/
+captures/
+assets/raw/
+assets/processed/
+*.ply
+*.sog
+*.compressed.ply
+*.ksplat
+*.spz
+*.ckpt
+*.pt
+*.pth
+*.mp4
+*.mov
+
+# local published scene runtime assets
+apps/web/public/scene-assets/**
+!apps/web/public/scene-assets/
+!apps/web/public/scene-assets/.gitkeep
+
+# generated vendor viewer bundle
+apps/web/public/supersplat-viewer/**
+!apps/web/public/supersplat-viewer/
+!apps/web/public/supersplat-viewer/.gitkeep

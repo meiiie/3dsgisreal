@@ -1,0 +1,41 @@
+name: 3DGS pipeline task
+description: Track capture, training, post-processing, asset publishing, or viewer runtime work.
+title: "[3dgs] "
+labels: ["3dgs-pipeline", "needs-triage"]
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: Goal
+      description: What part of capture -> train -> publish -> viewer should this advance?
+    validations:
+      required: true
+  - type: checkboxes
+    id: stage
+    attributes:
+      label: Stage
+      options:
+        - label: Capture metadata
+        - label: Raw media transfer
+        - label: Nerfstudio processing/training
+        - label: PLY export
+        - label: SuperSplat cleanup
+        - label: SOG/settings/collision/poster generation
+        - label: MinIO/S3 upload
+        - label: Scene manifest publish
+        - label: Viewer/mobile QA
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints or privacy notes
+      description: Do not include private media, private addresses, or secrets.
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - Admin asset page reports ...
+        - Manifest reports ...
+        - Viewer loads ...
+    validations:
+      required: true

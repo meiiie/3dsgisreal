@@ -1,0 +1,17 @@
+{
+  "version": 8,
+  "name": "Loi Vao Local Lab",
+  "metadata": {
+    "loiVao:purpose": "Offline-safe MapLibre style for the local lab harness."
+  },
+  "sources": {},
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "paint": {
+        "background-color": "#dfe7e4"
+      }
+    }
+  ]
+}

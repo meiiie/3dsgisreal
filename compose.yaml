@@ -1,0 +1,76 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+    environment:
+      NODE_ENV: production
+      PORT: 4317
+      HOSTNAME: 0.0.0.0
+      NEXT_PUBLIC_APP_NAME: Loi Vao
+      NEXT_PUBLIC_MAP_STYLE_URL: ${NEXT_PUBLIC_MAP_STYLE_URL:-https://demotiles.maplibre.org/style.json}
+      DATABASE_URL: postgres://loi_vao:${POSTGRES_PASSWORD:-loi_vao_dev}@postgres:5432/loi_vao
+      SCENE_ASSETS_BUCKET: scene-assets
+      RAW_CAPTURE_BUCKET: raw-captures
+      S3_ENDPOINT: http://minio:9000
+      S3_REGION: us-east-1
+      S3_ACCESS_KEY_ID: ${MINIO_ROOT_USER:-loi_vao}
+      S3_SECRET_ACCESS_KEY: ${MINIO_ROOT_PASSWORD:-loi_vao_dev_password}
+    ports:
+      - "4317:4317"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_started
+      minio-setup:
+        condition: service_completed_successfully
+
+  postgres:
+    image: postgis/postgis:17-3.5
+    environment:
+      POSTGRES_DB: loi_vao
+      POSTGRES_USER: loi_vao
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-loi_vao_dev}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U loi_vao -d loi_vao"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  minio:
+    image: quay.io/minio/minio:latest
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-loi_vao}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-loi_vao_dev_password}
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+
+  minio-setup:
+    image: quay.io/minio/mc:latest
+    depends_on:
+      minio:
+        condition: service_started
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-loi_vao}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-loi_vao_dev_password}
+    entrypoint: ["/bin/sh", "-c"]
+    command: >
+      'until mc alias set local http://minio:9000 "$$MINIO_ROOT_USER" "$$MINIO_ROOT_PASSWORD";
+      do sleep 1; done;
+      mc mb --ignore-existing local/scene-assets;
+      mc mb --ignore-existing local/raw-captures;
+      mc anonymous set download local/scene-assets;
+      echo "MinIO buckets ready."'
+
+volumes:
+  postgres_data:
+  minio_data:

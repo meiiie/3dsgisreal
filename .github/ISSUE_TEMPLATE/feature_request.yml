@@ -1,0 +1,39 @@
+name: Feature request
+description: Propose a product, pipeline, viewer, admin, or developer-experience feature.
+title: "[feature] "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What user, operator, or maintainer problem does this solve?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the smallest useful version.
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Public map/place pages
+        - Viewer/runtime
+        - Admin/operator workflow
+        - User/check-in/quiz
+        - 3DGS capture/training pipeline
+        - PostGIS/storage/backend
+        - Design/brand
+        - Docs/tooling
+    validations:
+      required: true
+  - type: textarea
+    id: verification
+    attributes:
+      label: Verification idea
+      description: How should we know this works?

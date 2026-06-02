@@ -1,0 +1,22 @@
+{
+  "name": "@loi-vao/db",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "migrate": "node scripts/migrate.mjs",
+    "migrate:status": "node scripts/migrate.mjs --status",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "kysely": "^0.28.8",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.2",
+    "@types/pg": "^8.16.0",
+    "typescript": "^5.9.3"
+  }
+}

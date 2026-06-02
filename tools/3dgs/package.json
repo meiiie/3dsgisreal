@@ -1,0 +1,11 @@
+{
+  "name": "@loi-vao/3dgs-tools",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "upload:scene-assets": "node upload_scene_assets_to_s3.mjs"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.1058.0"
+  }
+}

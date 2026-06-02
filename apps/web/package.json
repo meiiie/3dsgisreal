@@ -1,0 +1,33 @@
+{
+  "name": "@tro/web",
+  "private": true,
+  "scripts": {
+    "sync:supersplat-viewer": "node scripts/sync-supersplat-viewer.mjs",
+    "predev": "pnpm sync:supersplat-viewer",
+    "dev": "next dev --turbopack --port 4317",
+    "prebuild": "pnpm sync:supersplat-viewer",
+    "build": "next build",
+    "lint": "eslint .",
+    "typecheck": "next typegen && tsc --noEmit"
+  },
+  "dependencies": {
+    "@loi-vao/assets": "workspace:*",
+    "@loi-vao/db": "workspace:*",
+    "@playcanvas/supersplat-viewer": "^1.26.0",
+    "lucide-react": "^1.17.0",
+    "maplibre-gl": "^5.24.0",
+    "next": "^16.2.7",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.3.0",
+    "@types/node": "^24.10.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.2.7",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^5.9.3"
+  }
+}

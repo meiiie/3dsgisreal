@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  web:
+    name: Web, packages, and compose
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck assets package
+        run: pnpm --filter @loi-vao/assets typecheck
+
+      - name: Typecheck db package
+        run: pnpm --filter @loi-vao/db typecheck
+
+      - name: Typecheck web app
+        run: pnpm --filter @tro/web typecheck
+
+      - name: Lint web app
+        run: pnpm --filter @tro/web lint
+
+      - name: Build web app
+        run: pnpm --filter @tro/web build
+
+      - name: Validate Docker Compose config
+        run: docker compose config --quiet
