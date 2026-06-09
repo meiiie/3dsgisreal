@@ -24,8 +24,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/db
       '@playcanvas/supersplat-viewer':
-        specifier: ^1.26.0
-        version: 1.26.0
+        specifier: ^1.26.2
+        version: 1.26.2
       lucide-react:
         specifier: ^1.17.0
         version: 1.17.0(react@19.2.7)
@@ -49,11 +49,11 @@ importers:
         specifier: ^24.10.2
         version: 24.12.4
       '@types/react':
-        specifier: ^19.2.7
-        version: 19.2.16
+        specifier: ^19.2.17
+        version: 19.2.17
       '@types/react-dom':
         specifier: ^19.2.3
-        version: 19.2.3(@types/react@19.2.16)
+        version: 19.2.3(@types/react@19.2.17)
       eslint:
         specifier: ^9.39.1
         version: 9.39.4(jiti@2.7.0)
@@ -629,8 +629,8 @@ packages:
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
 
-  '@playcanvas/supersplat-viewer@1.26.0':
-    resolution: {integrity: sha512-Ba/wXYKB15yGkS2lAtU+hDAyRsn6Raf1PQmjOt9d8DqgZTz/bwldXjfa6rJd5KCW7/OQ7EUuPH9uE83VKJRRaA==}
+  '@playcanvas/supersplat-viewer@1.26.2':
+    resolution: {integrity: sha512-7D28zFor0yPRgDi6GqgmP5mcs/iSQCEawpAnr6lWXk8JJnXmYl+m+9eTH1qk38BOgkyCoksmuDwidlxclKpKtQ==}
     engines: {node: '>=18.0.0'}
 
   '@rtsao/scc@1.1.0':
@@ -819,8 +819,8 @@ packages:
     peerDependencies:
       '@types/react': ^19.2.0
 
-  '@types/react@19.2.16':
-    resolution: {integrity: sha512-esJiCAnl0kfpNdE69f3So4WJUXy95dLZydX0KwK46riIHDzHM7O9Vtf9xCHW0PXIqvgqNrswl522kA/5yx+F4w==}
+  '@types/react@19.2.17':
+    resolution: {integrity: sha512-MXfmqaVPEVgkBT/aY0aGCkRWWtByiYQXo3xdQ8r5RzuFrPiRn8Gar2tQdXSUQ2GKV3bkXckek89V8wQBY2Q/Aw==}
 
   '@types/supercluster@7.1.3':
     resolution: {integrity: sha512-Z0pOY34GDFl3Q6hUFYf3HkTwKEE02e7QgtJppBt+beEAxnyOpJua+voGFvxINBHa06GwLFFym7gRPY2SiKIfIA==}
@@ -3024,7 +3024,7 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@playcanvas/supersplat-viewer@1.26.0': {}
+  '@playcanvas/supersplat-viewer@1.26.2': {}
 
   '@rtsao/scc@1.1.0': {}
 
@@ -3190,11 +3190,11 @@ snapshots:
       pg-protocol: 1.14.0
       pg-types: 2.2.0
 
-  '@types/react-dom@19.2.3(@types/react@19.2.16)':
+  '@types/react-dom@19.2.3(@types/react@19.2.17)':
     dependencies:
-      '@types/react': 19.2.16
+      '@types/react': 19.2.17
 
-  '@types/react@19.2.16':
+  '@types/react@19.2.17':
     dependencies:
       csstype: 3.2.3
 
